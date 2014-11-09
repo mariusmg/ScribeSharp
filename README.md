@@ -1,4 +1,4 @@
 ScribeSharp
 ===========
 
-ScribeSharp is a html geenrator/replacer/joiner
+ScribeSharp is a html generator/replacer/joiner.
