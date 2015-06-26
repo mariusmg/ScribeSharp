@@ -16,6 +16,16 @@ namespace voidsoft.ScribeSharp
 			CloneFolderStructure(options.InputPath, options.OutputPath);
 		}
 
+		private bool ShouldSkipFile(string fileExtension)
+		{
+			return ApplicationContext.IgnoredFiles.Contains(fileExtension.ToLower());
+		}
+
+		private bool ShouldSkipFolder(string name)
+		{
+			return ApplicationContext.IgnoredFolders.Contains(name.ToLower());
+		}
+
 		private void CloneFolderStructure(string startPath, string outputPath)
 		{
 			string[] files = Directory.GetFiles(startPath,"*.*");
@@ -31,12 +41,18 @@ namespace voidsoft.ScribeSharp
 
 				string fileName = Path.GetFileName(file);
 
-				string lower = fileName.ToLower();
+				//string lower = fileName.ToLower();
 
-				if (lower == "build.ps1" || lower == "build.bat" || lower == "commandline.dll" || lower == "ss.exe")
+
+				if (ShouldSkipFile(extension))
 				{
 					continue;
 				}
+
+				//if (lower == "build.ps1" || lower == "build.bat" || lower == "commandline.dll" || lower == "ss.exe")
+				//{
+				//	continue;
+				//}
 
 				//skip files *.master & redirect
 
@@ -61,6 +77,11 @@ namespace voidsoft.ScribeSharp
 			foreach (string d in directories)
 			{
 				string directoryName = Path.GetFileName(d);
+
+				if (ShouldSkipFolder(directoryName))
+				{
+					continue;
+				}
 
 				Directory.CreateDirectory(outputPath + directoryName);
 

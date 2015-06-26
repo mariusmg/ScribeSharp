@@ -1,5 +1,5 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
+Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScribeSharp", "ScribeSharp\ScribeSharp.csproj", "{0896DEB8-9A40-4C40-B237-07B432AD4B2B}"
 EndProject

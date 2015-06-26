@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationContext.cs" />
     <Compile Include="PathClone.cs" />
     <Compile Include="HtmlGenerator.cs" />
     <Compile Include="IProcess.cs" />

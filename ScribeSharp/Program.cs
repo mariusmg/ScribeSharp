@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using CommandLine;
 
@@ -56,17 +58,37 @@ namespace voidsoft.ScribeSharp
 	            Directory.CreateDirectory(options.OutputPath);
             }
 
-
+#if DEBUG
 			Console.WriteLine("input : " + options.InputPath );
 			Console.WriteLine("output : " + options.OutputPath );
+#endif
+			ApplicationContext.IgnoredFiles = new List<string>();
+			ApplicationContext.IgnoredFolders = new List<string>();
+
+	        string value = (string) (new AppSettingsReader()).GetValue("IgnoreList", typeof (string));
 
 
-            try
+	        if (!string.IsNullOrEmpty(value))
+	        {
+		        string[] strings = value.Split('|');
+
+		        foreach (string s in strings)
+		        {
+			        if (s.StartsWith("*"))
+			        {
+				        ApplicationContext.IgnoredFiles.Add(s.Substring(s.IndexOf(".")).ToLower());
+			        }
+			        else
+			        {
+						ApplicationContext.IgnoredFolders.Add(s.ToLower());
+			        }
+		        }
+	        }
+
+	        try
             {
                 (new PathClone()).Process(options);
-
                 (new HtmlGenerator()).Process(options);
-
                 (new RedirectsGenerator()).Process(options);
             }
             catch (Exception ex)
