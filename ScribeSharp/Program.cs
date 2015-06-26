@@ -10,7 +10,7 @@ namespace voidsoft.ScribeSharp
         {
             if (args.Length == 0)
             {
-                Console.WriteLine("ScribeSharp (c) 2012 Marius Gheorghe");
+                Console.WriteLine("ScribeSharp (c) 2012-2016 Marius Gheorghe");
                 Console.WriteLine("Usage sample : ");
                 Console.WriteLine(@"ss -i 'c:\input path' -o 'c:\output path' ");
                 Console.WriteLine(@"Make sure the paths don't end with \ . Also files in output path WILL BE OVERWRITTEN !!");
@@ -27,6 +27,9 @@ namespace voidsoft.ScribeSharp
                 Console.WriteLine("Output path parameter is required. Exiting...");
                 Environment.Exit(1);
             }
+
+	        options.InputPath = options.InputPath.Replace("'", "");
+	        options.OutputPath = options.OutputPath.Replace("'", "");
 
 
             if (!options.InputPath.EndsWith(@"\"))
@@ -50,9 +53,12 @@ namespace voidsoft.ScribeSharp
 
             if (!Directory.Exists(options.OutputPath))
             {
-                Console.WriteLine("Output path is invalid");
-                return;
+	            Directory.CreateDirectory(options.OutputPath);
             }
+
+
+			Console.WriteLine("input : " + options.InputPath );
+			Console.WriteLine("output : " + options.OutputPath );
 
 
             try
@@ -65,7 +71,7 @@ namespace voidsoft.ScribeSharp
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine(ex.Message);
                 return;
             }
 
