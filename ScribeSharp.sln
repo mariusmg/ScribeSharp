@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScribeSharpPort", "ScribeSharpPort.csproj", "{EC88A124-DAAE-44BD-AD88-59DFD07B61C3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScribeSharp", "ScribeSharp.csproj", "{EC88A124-DAAE-44BD-AD88-59DFD07B61C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
