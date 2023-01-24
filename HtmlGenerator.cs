@@ -9,11 +9,11 @@ public class HtmlGenerator : IProcess
     private readonly Dictionary<string, string> masterPages = new();
 
 
-    public void Process(CommandLineOptions o)
+    public void Process()
     {
-        LoadMasterPages(o.InputPath);
+        LoadMasterPages(ApplicationContext.InputPath);
 
-        var filestoProcess = LoadFilestoProcess(o.InputPath);
+        var filestoProcess = LoadFilestoProcess(ApplicationContext.InputPath);
 
         if (filestoProcess.Length == 0)
         {
@@ -21,7 +21,7 @@ public class HtmlGenerator : IProcess
             return;
         }
 
-        ProcessFiles(filestoProcess, o);
+        ProcessFiles(filestoProcess);
     }
 
 
@@ -41,12 +41,12 @@ public class HtmlGenerator : IProcess
     }
 
 
-    private void ProcessFiles(IEnumerable<string> filePathsToBeProcessed, CommandLineOptions options)
+    private void ProcessFiles(IEnumerable<string> filePathsToBeProcessed)
     {
         foreach (var filePath in filePathsToBeProcessed)
             try
             {
-                ProcessFile(filePath, options);
+                ProcessFile(filePath);
             }
             catch (Exception ex)
             {
@@ -55,7 +55,7 @@ public class HtmlGenerator : IProcess
             }
     }
 
-    private void ProcessFile(string filePath, CommandLineOptions options)
+    private void ProcessFile(string filePath)
     {
         Console.WriteLine("Started processing file {0} ", filePath);
 
@@ -104,7 +104,7 @@ public class HtmlGenerator : IProcess
             pageContent = mpContent.Replace(CONTENT_IDENTIFIER, pageContent);
 
             //get the correct output path by replace the output in input
-            var outputPath = filePath.Replace(options.InputPath, options.OutputPath);
+            var outputPath = filePath.Replace(ApplicationContext.InputPath, ApplicationContext.OutputPath);
 
             fsOutput = new FileStream(outputPath, FileMode.Truncate, FileAccess.Write);
 

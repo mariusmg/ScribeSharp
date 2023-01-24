@@ -6,17 +6,11 @@ public class RedirectsGenerator : IProcess
         "Link changed.Click <a href='XXX'/>here</a> if the browser doesn't redirect you automatically.<script>window.location=XXX</script>";
 
 
-    public void Process(CommandLineOptions options)
+    public void Process()
     {
-        GenerateRedirects(options);
-    }
+        if (!File.Exists(ApplicationContext.InputPath + @"\redirects.txt")) return;
 
-
-    private void GenerateRedirects(CommandLineOptions options)
-    {
-        if (!File.Exists(options.InputPath + @"\redirects.txt")) return;
-
-        var lines = File.ReadAllLines(options.InputPath + @"\redirects.txt");
+        var lines = File.ReadAllLines(ApplicationContext.InputPath + @"\redirects.txt");
 
 
         if (lines.Length == 0) return;
@@ -30,7 +24,7 @@ public class RedirectsGenerator : IProcess
 
                 if (parts.Length != 2) continue;
 
-                var fileStream = File.Create(options.OutputPath + @"\" + parts[1]);
+                var fileStream = File.Create(ApplicationContext.OutputPath + @"\" + parts[1]);
 
                 var writer = new StreamWriter(fileStream);
 

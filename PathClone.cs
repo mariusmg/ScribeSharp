@@ -2,12 +2,12 @@
 
 public class PathClone : IProcess
 {
-    public void Process(CommandLineOptions options)
+    public void Process()
     {
         //check if the output path exists
-        if (!Directory.Exists(options.OutputPath)) Directory.CreateDirectory(options.OutputPath);
+        if (!Directory.Exists(ApplicationContext.OutputPath)) Directory.CreateDirectory(ApplicationContext.OutputPath);
 
-        CloneFolderStructure(options.InputPath, options.OutputPath);
+        CloneFolderStructure(ApplicationContext.InputPath, ApplicationContext.OutputPath);
     }
 
     private bool ShouldSkipFile(string fileExtension)
@@ -34,9 +34,6 @@ public class PathClone : IProcess
             var extension = Path.GetExtension(file).ToLower();
 
             var fileName = Path.GetFileName(file);
-
-            //string lower = fileName.ToLower();
-
 
             if (ShouldSkipFile(extension)) continue;
 
